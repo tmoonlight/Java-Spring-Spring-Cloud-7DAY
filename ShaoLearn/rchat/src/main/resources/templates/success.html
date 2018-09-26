@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>提交成功</title>
 </head>
 <body>
-恭喜您提交成功，提示信息 ${info} <a href="">点击这里返回</a>
+<p th:text="${info}" ></p>
+ <a href="#">点击这f里返回</a>
 </body>
 </html>
