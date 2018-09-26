@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!-- 增加xmlns:th="http://www.thymeleaf.org" 即可显示出th开头的注释提示 -->
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello HTML</title>
+</head>
+<body>
+<h1 th:text="${info}"></h1>
+
+<form action="/success" method="post" >
+<input type="text" name="userName" id="txtUserName" />
+    <input type="submit" value="提交" />
+</form>
+</body>
+</html>
+
