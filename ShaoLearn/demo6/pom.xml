@@ -133,6 +133,13 @@
         <artifactId>thymeleaf-spring4</artifactId>
         <version>3.0.2.RELEASE</version>
     </dependency>
+
+
+    <dependency>
+        <groupId>tmoonlight</groupId>
+        <artifactId>shz-common</artifactId>
+        <version>0.9</version>
+    </dependency>
 </dependencies>
 
 </project>

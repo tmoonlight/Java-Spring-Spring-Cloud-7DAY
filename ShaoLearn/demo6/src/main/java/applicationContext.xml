@@ -18,4 +18,5 @@
             <aop:around method="printTime" pointcut-ref="addAllMethod" />
         </aop:aspect>
     </aop:config>
+
 </beans>

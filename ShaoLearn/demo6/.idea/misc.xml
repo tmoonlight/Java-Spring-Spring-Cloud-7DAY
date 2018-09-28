@@ -4,6 +4,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../../Java-Spring-Spring-Cloud-7DAY/ShaoLearn/tmoonlight-common/pom.xml" />
+        <option value="$PROJECT_DIR$/../democlient/pom.xml" />
       </list>
     </option>
   </component>

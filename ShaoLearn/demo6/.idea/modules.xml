@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/demo6.iml" filepath="$PROJECT_DIR$/demo6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../democlient/democlient.iml" filepath="$PROJECT_DIR$/../democlient/democlient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Java-Spring-Spring-Cloud-7DAY/ShaoLearn/tmoonlight-common/shz-common.iml" filepath="$PROJECT_DIR$/../../Java-Spring-Spring-Cloud-7DAY/ShaoLearn/tmoonlight-common/shz-common.iml" />
     </modules>
   </component>
 </project>
