@@ -1,9 +1,12 @@
 package tmoonlight.rchat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tmoonlight.rchat.service.ShaoService;
+import tmoonlight.rchat.vo.EnvironmentBO;
+import tmoonlight.rchat.vo.MyBO;
 import tmoonlight.rchat.vo.UserVO;
 
 import java.util.ArrayList;
@@ -20,11 +23,24 @@ import java.util.Map;
 public class ShaoDemoController {
 
     @Autowired
+    EnvironmentBO environmentBO;
+
+    @Autowired
     ShaoService shaoService;
+
     //<editor-fold desc="一坨接口">
     @RequestMapping("/temp")
     public String index(Map<String, String> map) {
         map.put("info", "测试thymlaf！");
+
+        MyBO bo = new MyBO();
+        bo.setField1("test1");
+        bo.setField2("testtest");
+        bo.setField3("tesdsa 第三方啊t1");
+        bo.setField4("test反倒是 第三方");
+
+        System.out.println("======================(*(&*(^&(");
+        System.out.println( bo.toString());
         return "testshao";
     }
 
@@ -48,6 +64,7 @@ public class ShaoDemoController {
         //public void forEach(Consumer<? super E> action) {
         //
        // list.forEach(str->{str});
+        //java.util.function.
         HashMap<String,String> hmap = new HashMap<String,String>();
         map.put("info", resultStr);
 

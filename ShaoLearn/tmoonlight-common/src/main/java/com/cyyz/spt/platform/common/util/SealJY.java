@@ -1,0 +1,326 @@
+package com.cyyz.spt.platform.common.util;
+
+import org.apache.commons.lang3.StringUtils;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 解压缩
+ * @author Administrator
+ *
+ */
+public class SealJY {
+
+    public static int[] initImageDate(int[] byteSealBasicTX,int width, int height){
+        int[] result = new int[byteSealBasicTX.length];
+        for (int y = 0; y <= (height - 1); y++){
+            for (int x = 0; x <= (width - 1); x++){
+                int cc = 22 + x + y * width;
+                int dd = byteSealBasicTX[cc];
+                if (dd == 0x3){//防标志
+                    result[cc]=0x0;
+                }else{
+                    result[cc]=byteSealBasicTX[cc];
+                }
+            }
+        }
+        return result;
+    }
+
+    public static BufferedImage getTX(int[] byteTX, int width, int height, String type,String filePath) {
+        int[] byteSealBasicTX = initImageDate(byteTX, width, height);
+        //创建一张位图并且使用它创建一个
+        //Graphics对象
+        //368823
+        //358801
+
+        //Bitmap bmp = new Bitmap(width,height, PixelFormat.Format24bppRgb);
+        //bmp.SetResolution(400, 400);
+        BufferedImage bmp = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y <= (height - 1); y++) {
+            for (int x = 0; x <= (width - 1); x++) {
+                int cc = 22 + x + y * width;
+
+                int dd = byteSealBasicTX[cc];
+                Color sColor = new Color(255, 255, 255);
+                if (type == "0") {
+                    if (dd == 0x0) {//前景红色
+                        sColor = new Color(255, 0, 0);
+                    } else if (dd == 0x1) {//背景白色
+                        sColor = new Color(255, 255, 255);
+                    } else if (dd == 0x2) {//数字蓝色
+                        sColor = new Color(0, 0, 255);
+                    } else if (dd == 0x3) {//防标志
+                        sColor = new Color(0, 255, 0);
+                    }
+                    //else if (dd == 0x4)
+                    //{
+                    //    sColor = Color.FromArgb(192, 88, 207);
+                    //}
+                } else {
+                    if (dd == 0x0) {
+                        sColor = new Color(0, 0, 0);
+                    } else if (dd == 0x1) {
+                        sColor = new Color(255, 255, 255);
+                    } else if (dd == 0x2) {
+                        sColor = new Color(0, 0, 0);
+                    } else if (dd == 0x3) {
+                        sColor = new Color(255, 255, 255);
+                    }
+                }
+                Graphics g = bmp.getGraphics();
+                g.setColor(sColor);
+                g.drawLine(x, y, x, y);
+            }
+        }
+        if (StringUtils.isNotBlank(filePath)) {
+            try {
+                File f = new File(filePath);
+                try {
+                    ImageIO.write(bmp, "bmp", f);
+                    bmp.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return bmp;
+    }
+
+    public static int[] yzjys(int[] BinByte, int width, int height)
+    {
+        int[] ImgByte;
+        //string Sid;
+        int n, m;
+        int i, k, nLine;
+        int j, w;
+        byte TZ = 0x0;
+        boolean wxy;
+        int BinLen;
+        //const Byte ImgQJ = 0x0;
+        final byte ImgBJ = 0x20;//32
+        final byte ImgBM = 0x40;//64
+        final byte ImgQJTZ = 0x60;//96
+        final byte ImgBJTZ = (byte)0x80;//128
+        int[] Result;
+
+
+
+        //nWidth = 599;
+        //nHeight = 599;
+
+        ImgByte = new int[22 + width * height + 10000];
+
+        for (k = 0; k <= 21; k++)
+        {
+            ImgByte[k] = BinByte[k];
+        }
+        for (i = 22; i <= 22 + width * height; i++)
+        {
+            ImgByte[i] = 0x1;
+        }
+        //ImgByte[21] = Byte.parseByte("2");
+        ImgByte[21] = 50;
+        BinLen = BinByte.length;
+        i = 0;
+        j = 0;
+        k = 22;
+        w = 22;
+        nLine = 0;
+        try
+        {
+            while (k < BinLen)
+            {
+                wxy = true;
+                if ((BinByte[k] < 32) && (BinByte[k] > 0x0))
+                {
+                    TZ = 0x0;
+                    i = BinByte[k];
+                }
+                else if ((BinByte[k] < 225) && (BinByte[k] >= 192))
+                {
+                    TZ = 0x0;
+                    m = BinByte[k] - 192;
+                    k = k + 1;
+                    n = BinByte[k];
+                    i = m * 256 + n;
+                }
+                else if ((BinByte[k] < 64) && (BinByte[k] > 32))
+                {
+                    TZ = 0x1;
+                    i = BinByte[k] - ImgBJ;
+                }
+                else if ((BinByte[k] < 192) && (BinByte[k] >= 160))
+                {
+                    TZ = 0x1;
+                    m = BinByte[k] - 160;
+                    k = k + 1;
+                    n = BinByte[k];
+                    i = m * 256 + n;
+                }
+                else if ((BinByte[k] < 96) && (BinByte[k] > 64))
+                {
+                    TZ = 0x2;
+                    i = BinByte[k] - ImgBM;
+                }
+                else if ((BinByte[k] < 128) && (BinByte[k] > 96))
+                {
+                    TZ = 0x3;
+                    i = BinByte[k] - ImgQJTZ;
+                }
+                else if ((BinByte[k] < 160) && (BinByte[k] > 128))
+                {
+                    TZ = 0x4;
+                    i = BinByte[k] - ImgBJTZ;
+                }
+                else if (BinByte[k] == 0)
+                {
+                    nLine = nLine + 1;
+                    w = 22 + nLine * width;
+                    wxy = false;
+                }
+
+                if ((w > 22 + width * height))
+                {
+                    wxy = false;
+                }
+
+                if (wxy)
+                {
+                    for (j = w; j <= w + i - 1; j++)
+                    {
+                        ImgByte[j] = TZ;
+                    }
+                    w = w + i;
+                }
+
+                k = k + 1;
+            }
+        }
+        catch (Exception e)
+        {
+            j = w;
+        }
+        Result = ImgByte;
+        return Result;
+    }
+
+    /**
+     * 获得指定文件的byte数组
+     */
+    public static byte[] getBytes(String filePath) {
+        byte[] buffer = null;
+        try {
+            File file = new File(filePath);
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(1000);
+            byte[] b = new byte[1000];
+            int n;
+            while ((n = fis.read(b)) != -1) {
+                bos.write(b, 0, n);
+            }
+            fis.close();
+            bos.close();
+            buffer = bos.toByteArray();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return buffer;
+    }
+
+    public static byte[] imageToBytes(BufferedImage bImage, String format) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bImage, format, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return out.toByteArray();
+    }
+    /**
+     * //获取章模
+     * @param seal_ys_byte 压缩后的印模数据
+     */
+    public static Map<String, Object> getSealImage(byte[] seal_ys_byte,String filePath) {
+        try {
+            int nWidth = 0, nHeight = 0;
+            byte[] ysByteSealBasicTX = seal_ys_byte;
+            String nWidthStr = String.valueOf((char) ((int) (ysByteSealBasicTX[13]))) + String.valueOf((char) ((int) (ysByteSealBasicTX[14]))) + String.valueOf((char) ((int) (ysByteSealBasicTX[15])));
+            String nHeightStr = String.valueOf((char) ((int) (ysByteSealBasicTX[17]))) + String.valueOf((char) ((int) (ysByteSealBasicTX[18]))) + String.valueOf((char) ((int) (ysByteSealBasicTX[19])));
+            try {
+                nWidth = Integer.parseInt(nWidthStr);
+                nHeight = Integer.parseInt(nHeightStr);
+            } catch (RuntimeException e) {
+                nWidth = 0;
+                nHeight = 0;
+            }
+            if (nWidth != 0 && nHeight != 0) {
+                int data[] = new int[ysByteSealBasicTX.length];
+                for (int i = 0; i < ysByteSealBasicTX.length; i++) {
+                    data[i] = ysByteSealBasicTX[i] & 0xff;
+                }
+                int[] byteSealBasicTX = yzjys(data, nWidth, nHeight);
+                int data_byte[] = new int[byteSealBasicTX.length];
+                for (int i = 0; i < byteSealBasicTX.length; i++) {
+                    data_byte[i] = byteSealBasicTX[i];
+                }
+
+                byte[] byteImage=imageToBytes(getTX(data_byte, nWidth, nHeight, "0", filePath), "bmp");
+                Map<String, Object> resMap = new HashMap<String, Object>();
+                resMap.put("data", byteImage);
+                resMap.put("width", nWidth);
+                resMap.put("height", nHeight);
+                return resMap;
+
+            }
+        } catch (RuntimeException e) {
+        }
+        return null;
+    }
+
+    /**
+     * //解压缩
+     * @param seal_ys_byte 压缩后的印模数据
+     */
+    public static void jyTest(byte[] seal_ys_byte,String filePath){
+        int nWidth = 0,nHeight = 0;
+        byte[] ysByteSealBasicTX = seal_ys_byte;
+        String nWidthStr=String.valueOf((char)((int)(ysByteSealBasicTX[13])))+String.valueOf((char)((int)(ysByteSealBasicTX[14])))+String.valueOf((char)((int)(ysByteSealBasicTX[15])));
+        String nHeightStr=String.valueOf((char)((int)(ysByteSealBasicTX[17])))+String.valueOf((char)((int)(ysByteSealBasicTX[18])))+String.valueOf((char)((int)(ysByteSealBasicTX[19])));
+        try {
+            nWidth = Integer.parseInt(nWidthStr);
+            nHeight = Integer.parseInt(nHeightStr);
+        } catch (RuntimeException e) {
+            nWidth = 0;
+            nHeight = 0;
+        }
+        if(nWidth!=0 && nHeight!=0){
+            int data[] = new int[ysByteSealBasicTX.length];
+            for(int i=0;i<ysByteSealBasicTX.length;i++){
+                data[i] = ysByteSealBasicTX[i] & 0xff;
+            }
+            int[] byteSealBasicTX = yzjys(data, nWidth, nHeight);
+            int data_byte[] = new int[byteSealBasicTX.length];
+            for(int i=0;i<byteSealBasicTX.length;i++){
+                data_byte[i] = byteSealBasicTX[i];
+            }
+            getTX(data_byte, nWidth, nHeight, "0",filePath);
+        }
+    }
+
+    public static void main(String args[]) throws Exception{
+        //base64后的印模数据（压缩过后存在数据库的数据）
+        String decode="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";
+        //解压印模并生成图片
+        SealJY.jyTest(Base64Util.decode(decode),"D://image//201608181125.bmp");
+    }
+}
