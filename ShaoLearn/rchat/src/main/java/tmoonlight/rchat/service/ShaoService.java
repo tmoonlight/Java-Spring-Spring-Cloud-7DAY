@@ -7,4 +7,6 @@ package tmoonlight.rchat.service;
  */
 public interface ShaoService {
     String DoLambda(LabMethod labMethod);
+
+    void doManyProc();
 }

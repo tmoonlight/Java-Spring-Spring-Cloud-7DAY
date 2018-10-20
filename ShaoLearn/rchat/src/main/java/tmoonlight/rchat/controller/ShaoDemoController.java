@@ -1,7 +1,6 @@
 package tmoonlight.rchat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tmoonlight.rchat.service.ShaoService;
@@ -22,16 +21,29 @@ import java.util.Map;
 @Controller
 public class ShaoDemoController {
 
-    @Autowired
-    EnvironmentBO environmentBO;
+//    @Autowired
+//    EnvironmentBO environmentBO;
+
 
     @Autowired
     ShaoService shaoService;
 
     //<editor-fold desc="一坨接口">
+
+    /**
+     * @param map
+     * @return
+     */
     @RequestMapping("/temp")
     public String index(Map<String, String> map) {
-        map.put("info", "测试thymlaf！");
+
+        int sixDigit = 102020;
+        String sixDigitString = String.valueOf(sixDigit);
+        int firstTwo = Integer.valueOf(sixDigitString.substring(0,2));
+        int lastFour = Integer.valueOf(sixDigitString.substring(2,6));
+
+        map.put("info", String.format("测试thymlaf！first:%d second: %d",firstTwo,
+                lastFour));
 
         MyBO bo = new MyBO();
         bo.setField1("test1");
@@ -44,6 +56,11 @@ public class ShaoDemoController {
         return "testshao";
     }
 
+    /**
+     * @param userVO
+     * @param map
+     * @return
+     */
     @RequestMapping("/success")
     public String success(UserVO userVO, Map<String, String> map) {
 
@@ -72,6 +89,8 @@ public class ShaoDemoController {
             System.out.println("labda表达式运行！");
         });
 
+        //执行分布式事务
+        shaoService.doManyProc();
 
         return "success";
     }
@@ -82,6 +101,7 @@ public class ShaoDemoController {
         return "nullpage";
     }
     //</editor-fold>
+
 
 
 }
