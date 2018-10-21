@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ShaoSrvApi/ShaoSrvApi.iml" filepath="$PROJECT_DIR$/ShaoSrvApi/ShaoSrvApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShaoSrvFour/ShaoSrvFour.iml" filepath="$PROJECT_DIR$/ShaoSrvFour/ShaoSrvFour.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShaoSrvOne/ShaoSrvOne.iml" filepath="$PROJECT_DIR$/ShaoSrvOne/ShaoSrvOne.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShaoSrvTwo/ShaoSrvTwo.iml" filepath="$PROJECT_DIR$/ShaoSrvTwo/ShaoSrvTwo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/newgroup.iml" filepath="$PROJECT_DIR$/newgroup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shaosrveureka/shao-srv-eureka.iml" filepath="$PROJECT_DIR$/shaosrveureka/shao-srv-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shaosrvgateway/shao-srv-gateway.iml" filepath="$PROJECT_DIR$/shaosrvgateway/shao-srv-gateway.iml" />
+    </modules>
+  </component>
+</project>

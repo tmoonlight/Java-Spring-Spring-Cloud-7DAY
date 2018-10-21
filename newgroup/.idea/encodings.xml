@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../ShaoLearn/ShaoSrvOne" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../ShaoLearn/shaosrveureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShaoSrvApi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShaoSrvFour" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShaoSrvOne" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ShaoSrvTwo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shaosrveureka" charset="UTF-8" />
+  </component>
+</project>

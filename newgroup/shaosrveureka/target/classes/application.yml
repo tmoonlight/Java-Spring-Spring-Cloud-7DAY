@@ -1,0 +1,13 @@
+server:
+  port: 9801
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/
+spring:
+  output:
+    ansi:
+      enabled: always
+

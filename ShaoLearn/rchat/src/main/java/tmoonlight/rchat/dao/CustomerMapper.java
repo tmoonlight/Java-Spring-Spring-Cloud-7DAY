@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import tmoonlight.rchat.model.Customer;
 
-@Repository
+
 @Mapper
 public interface CustomerMapper {
     @Delete({
