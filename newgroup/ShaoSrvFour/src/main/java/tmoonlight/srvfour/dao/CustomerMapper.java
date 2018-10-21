@@ -1,5 +1,6 @@
 package tmoonlight.srvfour.dao;
 
+
 import org.apache.ibatis.annotations.*;
 import tmoonlight.srvfour.model.Customer;
 
@@ -58,7 +59,7 @@ public interface CustomerMapper {
         "from crm_customer",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("CustomerMapper.BaseResultMap")
+    @ResultMap("tmoonlight.srvfour.dao.CustomerMapper.BaseResultMap")
     Customer selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Customer record);

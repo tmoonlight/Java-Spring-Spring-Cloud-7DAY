@@ -58,7 +58,10 @@ public interface CustomerMapper {
         "from crm_customer",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    @ResultMap("CustomerMapper.BaseResultMap")
+    //sb玩意儿，为啥自己给改了
+    //@ResultMap("CustomerMapper.BaseResultMap")
+    @ResultMap(" tmoonlight.srvtwo.dao.CustomerMapper.BaseResultMap")
+
     Customer selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Customer record);

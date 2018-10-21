@@ -6,9 +6,7 @@
         <artifactId>ShaoSrvOne</artifactId>
         <groupId>tmoonlight</groupId>
         <version>0.0.1-SNAPSHOT</version>
-
-
-    <modelVersion>4.0.0</modelVersion>
+        <modelVersion>4.0.0</modelVersion>
 
 
     <parent>
